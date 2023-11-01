@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    application
 }
 
 group = "hexlet.code"
@@ -14,6 +15,12 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
+application { mainClass.set("hexlet.code.App") }
+
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.compileJava {
+    options.release = 20
 }
