@@ -1,2 +1,2 @@
-run-dist:
-    ./build/install/app/bin/app # запуск исполняемого файла
+run-dist: # запуск исполняемого файла
+	./build/install/app/bin/app
