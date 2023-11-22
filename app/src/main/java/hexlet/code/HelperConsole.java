@@ -1,13 +1,12 @@
 package hexlet.code;
 
 //import picocli.CommandLine;
-//import picocli.CommandLine.Command;
+import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
-//@Command(name = "checksum", mixinStandardHelpOptions = true, version = "checksum 4.0",
-//        description = "Prints the checksum (SHA-256 by default) of a file to STDOUT.")
+@Command(name = "gendiff", description = "Compares two configuration files and shows a difference.")
 public class HelperConsole implements Callable<Integer> {
     @Parameters(index = "0", description = "path to first file")
     private String filepath1;
