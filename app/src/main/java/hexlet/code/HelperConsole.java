@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 import java.util.concurrent.Callable;
 
-import static hexlet.code.Differ.*;
+import static hexlet.code.Differ.generate;
 
 @Command(name = "gendiff", description = "Compares two configuration files and shows a difference.")
 public class HelperConsole implements Callable<Integer> {
@@ -29,7 +29,7 @@ public class HelperConsole implements Callable<Integer> {
     private String format = "=format";
 
     @Override
-    public Integer call() throws Exception{
+    public Integer call() throws Exception {
         Path filePath1 = Paths.get(filepath1).toAbsolutePath().normalize();
         Path filePath2 = Paths.get(filepath2).toAbsolutePath().normalize();
 
