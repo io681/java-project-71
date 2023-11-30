@@ -17,12 +17,19 @@ dependencies {
     implementation ("info.picocli:picocli:4.7.5")
     annotationProcessor ("info.picocli:picocli-codegen:4.7.5")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 application { mainClass.set("hexlet.code.App") }
 
 tasks.test {
     useJUnitPlatform()
+
+    maxHeapSize = "1G"
+
+    testLogging {
+        events("passed")
+    }
 }
 
 tasks.compileJava {
