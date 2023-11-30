@@ -1,7 +1,11 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     id("java")
     id("checkstyle")
     application
+    jacoco
 }
 
 group = "hexlet.code"
@@ -28,11 +32,23 @@ tasks.test {
     maxHeapSize = "1G"
 
     testLogging {
-        events("passed")
-    }
+        exceptionFormat = TestExceptionFormat.FULL
+        events = mutableSetOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
+        // showStackTraces = true
+        // showCauses = true
+        showStandardStreams = true    }
+
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.compileJava {
     options.release = 20
 }
+
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(true) }
+}
+
 
