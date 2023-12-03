@@ -13,7 +13,7 @@ install:
 	./gradlew clean install
 
 run-dist:
-	./build/install/java-package/bin/java-package
+	./build/install/app/bin/app
 
 run:
 	./gradlew run
@@ -25,12 +25,12 @@ report:
 	./gradlew jacocoTestReport
 
 lint:
-	./gradlew checkstyleMain
+	./gradlew checkstyleMain checkstyleTest
 
-check-deps:
-	./gradlew dependencyUpdates -Drevision=release
+#check-deps:
+#	./gradlew dependencyUpdates -Drevision=release
 
 
-build-run: build run
+#build-run: build run
 
 .PHONY: build
