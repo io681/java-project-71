@@ -27,8 +27,8 @@ report:
 lint:
 	./gradlew checkstyleMain checkstyleTest
 
-#check-deps:
-#	./gradlew dependencyUpdates -Drevision=release
+check-deps:
+	./gradlew dependencyUpdates -Drevision=release
 
 
 #build-run: build run
