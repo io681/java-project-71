@@ -18,8 +18,8 @@ public class DifferTest {
         String contentFile2 = Files.readString(filePath2);
 
         String expectedResult =
-                "- followfalse ,  hosthexlet.io ,- proxy123.234.53.22 ,- timeout50 "
-                        + ",+ timeout20 ,+ verbosetrue ,";
+                " - followfalse ,   hosthexlet.io , - proxy123.234.53.22 , - timeout50 "
+                        + ", + timeout20 , + verbosetrue ,";
         String actualResult = generate(contentFile1, contentFile2);
 
         assertEquals(expectedResult, actualResult, "Error Equals Strings");
