@@ -14,4 +14,4 @@
 
 Step 5
 
-https://asciinema.org/a/RrfLrELwPiGJgTUhd9KfqAZ7S
+https://asciinema.org/a/rNl7rgp8pm3GcNFV7axmSycto
