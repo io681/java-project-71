@@ -48,15 +48,11 @@ public class Differ {
             }
         }
 
-        System.out.println("{");
-
         for (var entry : result.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-            resulString += entry.getKey() + entry.getValue() + " ,";
+            resulString += entry.getKey() + ": " + entry.getValue() + "\n";
         }
-        System.out.println("}");
-
-//        System.out.println(resulString);
+        resulString = "{\n" + resulString + "}";
+        System.out.println(resulString);
 
         return resulString;
     }
