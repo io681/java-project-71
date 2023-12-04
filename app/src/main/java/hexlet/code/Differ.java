@@ -24,36 +24,39 @@ public class Differ {
             if (!fileMap1.containsKey(key)) {
 //                added
                 var value = fileMap2.get(key);
-                String newKey = "+ " + key;
+                String newKey = " + " + key;
                 result.put(newKey, value);
             } else if (!fileMap2.containsKey(key)) {
 //                deleted
                 var value = fileMap1.get(key);
-                String newKey = "- " + key;
+                String newKey = " - " + key;
                 result.put(newKey, value);
             } else if (fileMap1.get(key).equals(fileMap2.get(key))) {
 //                unchanged
                 var value = fileMap1.get(key);
-                String newKey = "  " + key;
+                String newKey = "   " + key;
                 result.put(newKey, value);
             } else {
 //                changed
                 var oldValue = fileMap1.get(key);
                 var newValue = fileMap2.get(key);
-                String keyByOldValue = "- " + key;
-                String keyByNewValue = "+ " + key;
+                String keyByOldValue = " - " + key;
+                String keyByNewValue = " + " + key;
 
                 result.put(keyByOldValue, oldValue);
                 result.put(keyByNewValue, newValue);
             }
         }
 
+        System.out.println("{");
+
         for (var entry : result.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
             resulString += entry.getKey() + entry.getValue() + " ,";
         }
+        System.out.println("}");
 
-        System.out.println(resulString);
+//        System.out.println(resulString);
 
         return resulString;
     }
