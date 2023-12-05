@@ -1,57 +1,79 @@
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import static hexlet.code.Differ.generate;
-import static hexlet.code.Differ.generateYamlDiffer;
+import static hexlet.code.Parser.getData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
 
     @Test
-    void generateTestJson() throws Exception {
-        Path filePath1 = Paths.get("./src/test/resources/testFile1.json").toAbsolutePath().normalize();
-        Path filePath2 = Paths.get("./src/test/resources/testFile2.json").toAbsolutePath().normalize();
+    void generateTestJsonNested() throws Exception {
+        String filePath1 = "./src/test/resources/testFileNested1.json";
+        String filePath2 = "./src/test/resources/testFileNested2.json";
 
-        String contentFile1 = Files.readString(filePath1);
-        String contentFile2 = Files.readString(filePath2);
+        String expectedResult = "{\n"
+                + "   chars1: [a, b, c]\n"
+                + " - chars2: [d, e, f]\n"
+                + " + chars2: false\n"
+                + " - checked: false\n"
+                + " + checked: true\n"
+                + " - default: null\n"
+                + " + default: [value1, value2]\n"
+                + " - id: 45\n"
+                + " + id: null\n"
+                + " - key1: value1\n"
+                + " + key2: value2\n"
+                + "   numbers1: [1, 2, 3, 4]\n"
+                + " - numbers2: [2, 3, 4, 5]\n"
+                + " + numbers2: [22, 33, 44, 55]\n"
+                + " - numbers3: [3, 4, 5]\n"
+                + " + numbers4: [4, 5, 6]\n"
+                + " + obj1: {nestedKey=value, isNested=true}\n"
+                + " - setting1: Some value\n"
+                + " + setting1: Another value\n"
+                + " - setting2: 200\n"
+                + " + setting2: 300\n"
+                + " - setting3: true\n"
+                + " + setting3: none\n"
+                + "}";
 
-        String expectedResult =
-                "{\n"
-                    + " - follow: false\n"
-                    + "   host: hexlet.io\n"
-                    + " - proxy: 123.234.53.22\n"
-                    + " - timeout: 50\n"
-                    + " + timeout: 20\n"
-                    + " + verbose: true\n"
-                    + "}";
-
-        String actualResult = generate(contentFile1, contentFile2);
+        String actualResult = generate(getData(filePath1), getData(filePath2));
 
         assertEquals(expectedResult, actualResult, "Error Equals Strings");
     }
 
     @Test
-    void generateTestYaml() throws Exception {
-        Path filePath1 = Paths.get("./src/test/resources/testFile3.yaml").toAbsolutePath().normalize();
-        Path filePath2 = Paths.get("./src/test/resources/testFile4.yaml").toAbsolutePath().normalize();
+    void generateTestYamlNested() throws Exception {
+        String filePath1 = "./src/test/resources/testFileNested3.yaml";
+        String filePath2 = "./src/test/resources/testFileNested4.yaml";
 
-        String contentFile1 = Files.readString(filePath1);
-        String contentFile2 = Files.readString(filePath2);
+        String expectedResult = "{\n"
+                + "   chars1: [a, b, c]\n"
+                + " - chars2: [d, e, f]\n"
+                + " + chars2: false\n"
+                + " - checked: false\n"
+                + " + checked: true\n"
+                + " - default: null\n"
+                + " + default: [value1, value2]\n"
+                + " - id: 45\n"
+                + " + id: null\n"
+                + " - key1: value1\n"
+                + " + key2: value2\n"
+                + "   numbers1: [1, 2, 3, 4]\n"
+                + " - numbers2: [2, 3, 4, 5]\n"
+                + " + numbers2: [22, 33, 44, 55]\n"
+                + " - numbers3: [3, 4, 5]\n"
+                + " + numbers4: [4, 5, 6]\n"
+                + " + obj1: {nestedKey=value, isNested=true}\n"
+                + " - setting1: Some value\n"
+                + " + setting1: Another value\n"
+                + " - setting2: 200\n"
+                + " + setting2: 300\n"
+                + " - setting3: true\n"
+                + " + setting3: none\n"
+                + "}";
 
-        String expectedResult =
-                "{\n"
-                        + " - follow: false\n"
-                        + "   host: hexlet.io\n"
-                        + " - proxy: 123.234.53.22\n"
-                        + " - timeout: 50\n"
-                        + " + timeout: 20\n"
-                        + " + verbose: true\n"
-                        + "}";
-
-        String actualResult = generateYamlDiffer(contentFile1, contentFile2);
+        String actualResult = generate(getData(filePath1), getData(filePath2));
 
         assertEquals(expectedResult, actualResult, "Error Equals Strings");
     }

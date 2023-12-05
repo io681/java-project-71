@@ -1,45 +1,42 @@
 package hexlet.code;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import static hexlet.code.Parser.getData;
-import static hexlet.code.Parser.getDataFromYaml;
+import java.util.LinkedHashMap;
 
 public class Differ {
-    public static String generate(String fileContent1, String fileContent2) throws Exception {
-        Map<String, Object> fileMap1 = getData(fileContent1);
-        Map<String, Object> fileMap2 = getData(fileContent2);
-        Set<String> keysByJson = new TreeSet<>(fileMap1.keySet());
-        keysByJson.addAll(fileMap2.keySet());
+    public static String generate(Map<String, Object> fileDataMap1, Map<String, Object>  fileDataMap2)
+            throws Exception {
+        Map<String, Object>  fileFormattedMap1 = InnerFormatter.formatNestedData(fileDataMap1);
+        Map<String, Object>  fileFormattedMap2 = InnerFormatter.formatNestedData(fileDataMap2);
+
+        Set<String> keysForDiffer = new TreeSet<>(fileFormattedMap1.keySet());
+        keysForDiffer.addAll(fileFormattedMap2.keySet());
 
         Map<String, Object> result = new LinkedHashMap<>();
 
-        String resulString = "";
+        for (String key: keysForDiffer) {
 
-        for (String key: keysByJson) {
-
-            if (!fileMap1.containsKey(key)) {
+            if (!fileFormattedMap1.containsKey(key)) {
 //                added
-                var value = fileMap2.get(key);
+                var value = fileFormattedMap2.get(key);
                 String newKey = " + " + key;
                 result.put(newKey, value);
-            } else if (!fileMap2.containsKey(key)) {
+            } else if (!fileFormattedMap2.containsKey(key)) {
 //                deleted
-                var value = fileMap1.get(key);
+                var value = fileFormattedMap1.get(key);
                 String newKey = " - " + key;
                 result.put(newKey, value);
-            } else if (fileMap1.get(key).equals(fileMap2.get(key))) {
+            } else if (fileFormattedMap1.get(key).equals(fileFormattedMap2.get(key))) {
 //                unchanged
-                var value = fileMap1.get(key);
+                var value = fileFormattedMap1.get(key);
                 String newKey = "   " + key;
                 result.put(newKey, value);
             } else {
 //                changed
-                var oldValue = fileMap1.get(key);
-                var newValue = fileMap2.get(key);
+                var oldValue = fileFormattedMap1.get(key);
+                var newValue = fileFormattedMap2.get(key);
                 String keyByOldValue = " - " + key;
                 String keyByNewValue = " + " + key;
 
@@ -48,60 +45,6 @@ public class Differ {
             }
         }
 
-        for (var entry : result.entrySet()) {
-            resulString += entry.getKey() + ": " + entry.getValue() + "\n";
-        }
-        resulString = "{\n" + resulString + "}";
-        System.out.println(resulString);
-
-        return resulString;
-    }
-
-    public static String generateYamlDiffer(String fileContent1, String fileContent2) throws Exception {
-        Map<String, Object> fileMap1 = getDataFromYaml(fileContent1);
-        Map<String, Object> fileMap2 = getDataFromYaml(fileContent2);
-        Set<String> keysByJson = new TreeSet<>(fileMap1.keySet());
-        keysByJson.addAll(fileMap2.keySet());
-
-        Map<String, Object> result = new LinkedHashMap<>();
-
-        String resulString = "";
-
-        for (String key: keysByJson) {
-
-            if (!fileMap1.containsKey(key)) {
-//                added
-                var value = fileMap2.get(key);
-                String newKey = " + " + key;
-                result.put(newKey, value);
-            } else if (!fileMap2.containsKey(key)) {
-//                deleted
-                var value = fileMap1.get(key);
-                String newKey = " - " + key;
-                result.put(newKey, value);
-            } else if (fileMap1.get(key).equals(fileMap2.get(key))) {
-//                unchanged
-                var value = fileMap1.get(key);
-                String newKey = "   " + key;
-                result.put(newKey, value);
-            } else {
-//                changed
-                var oldValue = fileMap1.get(key);
-                var newValue = fileMap2.get(key);
-                String keyByOldValue = " - " + key;
-                String keyByNewValue = " + " + key;
-
-                result.put(keyByOldValue, oldValue);
-                result.put(keyByNewValue, newValue);
-            }
-        }
-
-        for (var entry : result.entrySet()) {
-            resulString += entry.getKey() + ": " + entry.getValue() + "\n";
-        }
-        resulString = "{\n" + resulString + "}";
-        System.out.println(resulString);
-
-        return resulString;
+        return OuterPrintFormatter.formatPrint("stylish", result);
     }
 }

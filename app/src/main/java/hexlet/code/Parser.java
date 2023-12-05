@@ -5,17 +5,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
 
-    public static Map<String, Object> getData(String content) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(content, new TypeReference<Map<String, Object>>() { });
-    }
+    public static Map<String, Object> getData(String filePath) throws Exception {
+        Path filePathParser = Paths.get(filePath).toAbsolutePath().normalize();
+        String contentFile = Files.readString(filePathParser);
 
-    public static Map<String, Object> getDataFromYaml(String content) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-        return objectMapper.readValue(content, new TypeReference<Map<String, Object>>() { });
+        if (filePath.endsWith(".json")) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(contentFile, new TypeReference<Map<String, Object>>() { });
+
+        } else if (filePath.endsWith(".yaml")) {
+            ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+            return objectMapper.readValue(contentFile, new TypeReference<Map<String, Object>>() { });
+        }
+        return null;
     }
 }
