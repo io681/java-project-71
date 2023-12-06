@@ -6,45 +6,43 @@ import java.util.TreeSet;
 import java.util.LinkedHashMap;
 
 public class Differ {
-    public static String generate(Map<String, Object> fileDataMap1, Map<String, Object>  fileDataMap2)
-            throws Exception {
-        Map<String, Object>  fileFormattedMap1 = InnerFormatter.formatNestedData(fileDataMap1);
-        Map<String, Object>  fileFormattedMap2 = InnerFormatter.formatNestedData(fileDataMap2);
+    public static String generate(Map<String, Object> fileDataMap1, Map<String, Object>  fileDataMap2,
+                                  String formatName) throws Exception {
+        Map<String, Object>  fileDataMapNormalizedWithoutNull1 = Normalizator.replaceNullData(fileDataMap1);
+        Map<String, Object>  fileDataMapNormalizedWithoutNull2 = Normalizator.replaceNullData(fileDataMap2);
 
-        Set<String> keysForDiffer = new TreeSet<>(fileFormattedMap1.keySet());
-        keysForDiffer.addAll(fileFormattedMap2.keySet());
-
+        Set<String> keysForDiffer = new TreeSet<>(fileDataMapNormalizedWithoutNull1.keySet());
+        keysForDiffer.addAll(fileDataMapNormalizedWithoutNull2.keySet());
         Map<String, Object> result = new LinkedHashMap<>();
 
         for (String key: keysForDiffer) {
 
-            if (!fileFormattedMap1.containsKey(key)) {
+            if (!fileDataMapNormalizedWithoutNull1.containsKey(key)) {
 //                added
-                var value = fileFormattedMap2.get(key);
-                String newKey = " + " + key;
+                var value = fileDataMapNormalizedWithoutNull2.get(key);
+                String newKey = key + "_added";
                 result.put(newKey, value);
-            } else if (!fileFormattedMap2.containsKey(key)) {
+            } else if (!fileDataMapNormalizedWithoutNull2.containsKey(key)) {
 //                deleted
-                var value = fileFormattedMap1.get(key);
-                String newKey = " - " + key;
+                var value = fileDataMapNormalizedWithoutNull1.get(key);
+                String newKey = key + "_deleted";
                 result.put(newKey, value);
-            } else if (fileFormattedMap1.get(key).equals(fileFormattedMap2.get(key))) {
+            } else if (fileDataMapNormalizedWithoutNull1.get(key).equals(fileDataMapNormalizedWithoutNull2.get(key))) {
 //                unchanged
-                var value = fileFormattedMap1.get(key);
-                String newKey = "   " + key;
+                var value = fileDataMapNormalizedWithoutNull1.get(key);
+                String newKey = key + "_unchanged";
                 result.put(newKey, value);
             } else {
 //                changed
-                var oldValue = fileFormattedMap1.get(key);
-                var newValue = fileFormattedMap2.get(key);
-                String keyByOldValue = " - " + key;
-                String keyByNewValue = " + " + key;
-
+                var oldValue = fileDataMapNormalizedWithoutNull1.get(key);
+                var newValue = fileDataMapNormalizedWithoutNull2.get(key);
+                String keyByOldValue = key + "_old_changed";
+                String keyByNewValue = key + "_new_changed";
                 result.put(keyByOldValue, oldValue);
                 result.put(keyByNewValue, newValue);
             }
         }
 
-        return OuterPrintFormatter.formatPrint("stylish", result);
+        return Formatter.printByTypeFormat(formatName, Normalizator.normalizeNestedToString(result, formatName));
     }
 }
