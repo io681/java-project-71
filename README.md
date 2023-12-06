@@ -15,3 +15,7 @@
 Step 5
 
 https://asciinema.org/a/rNl7rgp8pm3GcNFV7axmSycto
+
+Step 8
+
+https://asciinema.org/a/mTSCe8oGZJsYoHXyL9tj0otvd
