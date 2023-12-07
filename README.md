@@ -19,3 +19,7 @@ https://asciinema.org/a/rNl7rgp8pm3GcNFV7axmSycto
 Step 8
 
 https://asciinema.org/a/mTSCe8oGZJsYoHXyL9tj0otvd
+
+Step 9
+
+https://asciinema.org/a/CDnYXxB4DrFR4FkTov6iVJLjB
