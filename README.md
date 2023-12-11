@@ -9,6 +9,9 @@
 
 ### Вычислитель отличий
 
+Утилита сравнения двух файлов структурированных данных  в форматах - json, yaml. 
+Вывод результата отличий в виде plain text, stylish и json.
+
 
 *Записи аскинемы:*
 
@@ -23,3 +26,7 @@ https://asciinema.org/a/mTSCe8oGZJsYoHXyL9tj0otvd
 Step 9
 
 https://asciinema.org/a/CDnYXxB4DrFR4FkTov6iVJLjB
+
+Step 10
+
+https://asciinema.org/a/ks8csRjMR1YxK8mo9LtPPtpVG
