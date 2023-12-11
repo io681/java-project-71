@@ -28,7 +28,6 @@ public class FormatStylish {
             }
         }
         resulString = "{\n" + resulString + "}";
-        System.out.println(resulString);
 
         return resulString;
     }

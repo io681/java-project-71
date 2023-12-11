@@ -26,7 +26,7 @@ public class HelperConsole implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        generate(getData(filepath1), getData(filepath2), format);
+        System.out.println(generate(getData(filepath1), getData(filepath2), format));
         return 0;
     }
 }

@@ -26,7 +26,6 @@ public class FormatPlain {
                         + " to " + normalizedNestedObjectData(entry.getValue().get(2)) + "\n";
             }
         }
-        System.out.println(resulString);
 
         return resulString.substring(0, resulString.length() - 1);
     }
