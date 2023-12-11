@@ -1,34 +1,45 @@
 package hexlet.code.formatters;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import static hexlet.code.DifferEngine.STATUS_ADDED;
+import static hexlet.code.DifferEngine.STATUS_DELETED;
+import static hexlet.code.DifferEngine.STATUS_CHANGED;
 
 public class FormatPlain {
-    public static String formatPrintPlain(Map<String, Object> data) throws Exception {
+    public static String formatPrintPlain(Map<String, List<Object>> data) throws Exception {
         String resulString = "";
-        for (var entry : data.entrySet()) {
-            if (entry.getValue() instanceof String && !entry.getValue().equals("[complex value]")
-                    && !entry.getValue().equals("null")) {
-                data.put(entry.getKey(), "'" + entry.getValue()  + "'");
-            }
-        }
 
         for (var entry : data.entrySet()) {
-            if (entry.getKey().endsWith("_added")) {
-                String newKeyForSprint = entry.getKey().split("_")[0];
-                resulString += "Property '" + newKeyForSprint + "' was added with value: " + entry.getValue() + "\n";
-            } else if (entry.getKey().endsWith("_deleted")) {
-                String newKeyForSprint = entry.getKey().split("_")[0];
-                resulString += "Property '" + newKeyForSprint + "' was removed\n";
-            } else if (entry.getKey().endsWith("old_changed")) {
-                String newKeyForSprint = entry.getKey().split("_")[0];
-                var oldValue = entry.getValue();
-                var newValue = data.get(newKeyForSprint + "_new_changed");
-                resulString += "Property '" + newKeyForSprint + "' was updated. From " + oldValue
-                        + " to " + newValue + "\n";
+            Object statusKey = entry.getValue().get(0);
+            Object currentValue = normalizedNestedObjectData(entry.getValue().get(1));
+
+            if (statusKey.equals(STATUS_ADDED)) {
+                resulString += "Property '" + entry.getKey() + "' was added with value: " + currentValue + "\n";
+            } else if (statusKey.equals(STATUS_DELETED)) {
+                resulString += "Property '" + entry.getKey() + "' was removed\n";
+            } else if (statusKey.equals(STATUS_CHANGED)) {
+                resulString += "Property '" + entry.getKey() + "' was updated. From " + currentValue
+                        + " to " + normalizedNestedObjectData(entry.getValue().get(2)) + "\n";
             }
         }
         System.out.println(resulString);
 
         return resulString.substring(0, resulString.length() - 1);
+    }
+    private static String normalizedNestedObjectData(Object object) {
+        if (object instanceof String) {
+            return "'" + object + "'";
+        }
+        if (object instanceof Map || object instanceof Collection<?>) {
+            return "[complex value]";
+        }
+        if (Objects.isNull(object)) {
+            return "null";
+        }
+        return object.toString();
     }
 }
