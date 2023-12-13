@@ -3,10 +3,15 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static hexlet.code.Differ.generate;
 import static hexlet.code.Parser.getData;
+import static hexlet.code.formatters.Formatter.printByTypeFormat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DifferTest {
     @Test
@@ -138,5 +143,14 @@ public class DifferTest {
         String jsonActualResult = generate(getData(filePath1), getData(filePath2), "json");
 
         assertEquals(jsonContentExpectedResult, jsonActualResult, "Error Equals Strings");
+    }
+    @Test
+    void printByBadTypeFormatTest() {
+        var mapExample = new HashMap<String, List<Object>>();
+        mapExample.put("1", new ArrayList<>(List.of("a", "b", "c")));
+
+        assertThrows(RuntimeException.class, () -> {
+            printByTypeFormat("notJson", mapExample);
+        });
     }
 }
