@@ -11,11 +11,9 @@ import static hexlet.code.DifferEngine.STATUS_UNCHANGED;
 public class FormatStylish {
     public static String formatPrintStylish(Map<String, List<Object>> dataForPrint) {
         String resulString = "";
-
         for (var entry : dataForPrint.entrySet()) {
             Object statusKey = entry.getValue().get(0);
             Object currentValue = entry.getValue().get(1);
-
             if (statusKey.equals(STATUS_ADDED)) {
                 resulString += " + " + entry.getKey() + ": " + currentValue + "\n";
             } else if (statusKey.equals(STATUS_DELETED)) {
@@ -28,7 +26,6 @@ public class FormatStylish {
             }
         }
         resulString = "{\n" + resulString + "}";
-
         return resulString;
     }
 }

@@ -17,13 +17,10 @@ public class HelperConsole implements Callable<Integer> {
     String filepath2;
     @Option(names = { "-h", "--help" }, usageHelp = true, description = "Show this help message and exit.")
     boolean helpRequested = false;
-
     @Option(names = { "-V", "--version" }, description = "Print version information and exit.")
     boolean version = false;
-
     @Option(names = { "-f", "--format" }, defaultValue = "stylish", description = "output format [default: stylish]")
     String format = "=format";
-
     @Override
     public Integer call() throws Exception {
         System.out.println(generate(getData(filepath1), getData(filepath2), format));

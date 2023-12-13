@@ -11,13 +11,11 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
-
     public static Map<String, Object> getData(String filePath) throws Exception {
         Path filePathParser = Paths.get(filePath).toAbsolutePath().normalize();
         String contentFile = Files.readString(filePathParser);
         String[] filePathSplit = filePath.split("\\.");
         String fileFormat = filePathSplit[filePathSplit.length - 1];
-
         return switch (fileFormat) {
             case "json" -> {
                 ObjectMapper objectMapperJson = new ObjectMapper();

@@ -33,7 +33,6 @@ public class DifferEngine {
                 resultMap.put(key, Arrays.asList(STATUS_CHANGED, map1.get(key), map2.get(key)));
             }
         }
-
         return resultMap;
     }
 }
