@@ -145,6 +145,15 @@ public class DifferTest {
         assertEquals(jsonContentExpectedResult, jsonActualResult, "Error Equals Strings");
     }
     @Test
+    void printByTypeFormatTest() throws Exception {
+        var mapExample = new HashMap<String, List<Object>>();
+        mapExample.put("1", new ArrayList<>(List.of("a", "b", "c")));
+        String expectedResult = "{\"1\":[\"a\",\"b\",\"c\"]}";
+        String actual = printByTypeFormat("json", mapExample);
+        assertEquals(expectedResult, actual, "Error Equals Strings");
+    }
+
+    @Test
     void printByBadTypeFormatTest() {
         var mapExample = new HashMap<String, List<Object>>();
         mapExample.put("1", new ArrayList<>(List.of("a", "b", "c")));
