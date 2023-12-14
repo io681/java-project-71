@@ -9,17 +9,17 @@ import java.util.concurrent.Callable;
 import static hexlet.code.Differ.generate;
 
 @Command(name = "gendiff", description = "Compares two configuration files and shows a difference.")
-public class HelperConsole implements Callable<Integer> {
+public final class HelperConsole implements Callable<Integer> {
     @Parameters(index = "0", description = "path to first file")
-    String filepath1;
+    private String filepath1;
     @Parameters(index = "1", description = "path to second file")
-    String filepath2;
+    private String filepath2;
     @Option(names = { "-h", "--help" }, usageHelp = true, description = "Show this help message and exit.")
-    boolean helpRequested = false;
+    private boolean helpRequested = false;
     @Option(names = { "-V", "--version" }, description = "Print version information and exit.")
-    boolean version = false;
+    private boolean version = false;
     @Option(names = { "-f", "--format" }, defaultValue = "stylish", description = "output format [default: stylish]")
-    String format = "=format";
+    private String format = "=format";
     @Override
     public Integer call() throws Exception {
         System.out.println(generate(filepath1, filepath2, format));
