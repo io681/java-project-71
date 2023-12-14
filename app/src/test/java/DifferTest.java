@@ -45,7 +45,7 @@ public class DifferTest {
                 + " + setting3: none\n"
                 + "}";
 
-        String actualResult = generate(getData(filePath1), getData(filePath2), "stylish");
+        String actualResult = generate(filePath1, filePath2, "stylish");
 
         assertEquals(expectedResult, actualResult, "Error Equals Strings");
     }
@@ -80,7 +80,7 @@ public class DifferTest {
                 + " + setting3: none\n"
                 + "}";
 
-        String actualResult = generate(getData(filePath1), getData(filePath2), "stylish");
+        String actualResult = generate(filePath1, filePath2, "stylish");
 
         assertEquals(expectedResult, actualResult, "Error Equals Strings");
     }
@@ -103,7 +103,7 @@ public class DifferTest {
                 + "Property 'setting2' was updated. From 200 to 300\n"
                 + "Property 'setting3' was updated. From true to 'none'";
 
-        String actualResult = generate(getData(filePath1), getData(filePath2), "plain");
+        String actualResult = generate(filePath1, filePath2, "plain");
 
         assertEquals(expectedResult, actualResult, "Error Equals Strings");
     }
@@ -127,7 +127,7 @@ public class DifferTest {
                 + "Property 'setting3' was updated. From true to 'none'";
 
 
-        String actualResult = generate(getData(filePath1), getData(filePath2), "plain");
+        String actualResult = generate(filePath1, filePath2, "plain");
 
         assertEquals(expectedResult, actualResult, "Error Equals Strings");
     }
@@ -140,7 +140,7 @@ public class DifferTest {
         Path filePathParser = Paths.get(filePathExpectedResult).toAbsolutePath().normalize();
         String jsonContentExpectedResult = Files.readString(filePathParser);
 
-        String jsonActualResult = generate(getData(filePath1), getData(filePath2), "json");
+        String jsonActualResult = generate(filePath1, filePath2, "json");
 
         assertEquals(jsonContentExpectedResult, jsonActualResult, "Error Equals Strings");
     }
