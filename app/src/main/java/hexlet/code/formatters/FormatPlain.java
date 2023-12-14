@@ -11,17 +11,17 @@ import static hexlet.code.DifferEngine.STATUS_CHANGED;
 import static hexlet.code.DifferEngine.STATUS_UNCHANGED;
 
 public class FormatPlain {
-    public static String formatPrintPlain(Map<String, List<Object>> data) throws Exception {
-        StringBuilder resulString = new StringBuilder();
+    public static String formatPrintPlain(Map<String, List<Object>> data) {
+        StringBuilder resultString = new StringBuilder();
         for (var entry : data.entrySet()) {
             Object statusKey = entry.getValue().get(0);
             Object currentValue = normalizedNestedObjectData(entry.getValue().get(1));
             switch (statusKey.toString()) {
-                case STATUS_ADDED -> resulString.append("Property '")
+                case STATUS_ADDED -> resultString.append("Property '")
                         .append(entry.getKey()).append("' was added with value: ").append(currentValue).append("\n");
-                case STATUS_DELETED -> resulString.append("Property '")
+                case STATUS_DELETED -> resultString.append("Property '")
                         .append(entry.getKey()).append("' was removed\n");
-                case STATUS_CHANGED -> resulString.append("Property '")
+                case STATUS_CHANGED -> resultString.append("Property '")
                         .append(entry.getKey()).append("' was updated. From ")
                         .append(currentValue).append(" to ")
                         .append(normalizedNestedObjectData(entry.getValue().get(2))).append("\n");
@@ -30,7 +30,7 @@ public class FormatPlain {
                 default -> throw new RuntimeException("Unknown statusKey");
             }
         }
-        return resulString.substring(0, resulString.length() - 1);
+        return resultString.substring(0, resultString.length() - 1);
     }
     private static String normalizedNestedObjectData(Object object) {
         if (object instanceof String) {
