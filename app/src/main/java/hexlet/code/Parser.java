@@ -22,7 +22,7 @@ public class Parser {
                 yield objectMapperJson.readValue(contentFile, new TypeReference<>() {
                 });
             }
-            case "yaml" -> {
+            case "yaml", "yml" -> {
                 ObjectMapper objectMapperYaml = new ObjectMapper(new YAMLFactory());
                 yield objectMapperYaml.readValue(contentFile, new TypeReference<>() {
                 });

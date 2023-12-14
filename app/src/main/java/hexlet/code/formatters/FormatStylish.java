@@ -16,15 +16,15 @@ public class FormatStylish {
             Object statusKey = entry.getValue().get(0);
             Object currentValue = entry.getValue().get(1);
             switch (statusKey.toString()) {
-                case STATUS_ADDED -> resultString.append(" + ")
+                case STATUS_ADDED -> resultString.append("+ ")
                         .append(entry.getKey()).append(": ").append(currentValue).append("\n");
-                case STATUS_DELETED -> resultString.append(" - ")
+                case STATUS_DELETED -> resultString.append("- ")
                         .append(entry.getKey()).append(": ").append(currentValue).append("\n");
-                case STATUS_UNCHANGED -> resultString.append("   ")
+                case STATUS_UNCHANGED -> resultString.append("  ")
                         .append(entry.getKey()).append(": ").append(currentValue).append("\n");
-                case STATUS_CHANGED -> resultString.append(" - ")
+                case STATUS_CHANGED -> resultString.append("- ")
                         .append(entry.getKey()).append(": ").append(currentValue).append("\n")
-                        .append(" + ")
+                        .append("+ ")
                         .append(entry.getKey()).append(": ").append(entry.getValue().get(2)).append("\n");
                 default -> throw new RuntimeException("Unknown statusKey");
             }
